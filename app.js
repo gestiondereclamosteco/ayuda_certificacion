@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const db = firebase.firestore();
 
     // --- CREDENCIALES ---
-    const users = { "AYKO": "francoayko", "OPTICAL": "joseoptical", "MATIAS": "pruebas" };
+    const users = { "AYKO": "francoayko", "OPTICAL": "joseoptical", "NEW": "georginanew", "PEBCOM": "sebastianpebcom", "INCO": "sebastianinco", "MATIAS": "pruebas" };
 
     // --- ESTADO DE LA APLICACIÓN ---
     let currentUser = null;
@@ -187,6 +187,17 @@ document.addEventListener('DOMContentLoaded', () => {
         datosParaExportar = [];
         const proyectoCodes = ['5040793', '5040794'];
         const clasificacion = { proyectoNorte: [], proyectoSur: [], mantenimientoNorte: [], mantenimientoSur: [] };
+
+        // Determinar el email para el campo CC según el proveedor logueado
+        const grupoPcalogero = ['AYKO', 'INCO', 'OPTICAL POWER', 'OPTICAL'];
+        const grupoPnissero = ['NEW', 'PEBCOM'];
+        let ccEmail = '';
+        if (grupoPcalogero.includes(currentUser.toUpperCase())) {
+            ccEmail = 'pcalogero@teco.com.ar';
+        } else if (grupoPnissero.includes(currentUser.toUpperCase())) {
+            ccEmail = 'pnissero@teco.com.ar';
+        }
+
         registroOTs.forEach(registro => {
             registro.tareas.forEach(tarea => {
                 const esProyecto = proyectoCodes.includes(tarea.codigo);
@@ -198,11 +209,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 else clasificacion.mantenimientoSur.push(tareaCompleta);
             });
         });
+
         const procesarCategoria = (titulo, tareas, nombreHoja) => {
             if (tareas.length === 0) return;
+
+            // --- INICIO: Lógica para la cabecera informativa ---
+            const infoHeader = [];
+            let destinatario = '', imputacion = '';
+            const ccList = [];
+
+            if (nombreHoja === 'Proyecto Norte') {
+                destinatario = 'Destinatario: Planificacion_AdministracionyCertificacionesOBRASAMBA@teco.com.ar';
+                if (ccEmail) ccList.push(ccEmail);
+                ccList.push('hlmartos@teco.com.ar');
+                imputacion = 'Imputación: OC - 600100000641';
+            } else if (nombreHoja === 'Proyecto Sur') {
+                destinatario = 'Destinatario: Planificacion_AdministracionyCertificacionesOBRASAMBA@teco.com.ar';
+                if (ccEmail) ccList.push(ccEmail);
+                ccList.push('hlmartos@teco.com.ar');
+                imputacion = 'Imputación: OC - 600100000642';
+            } else if (nombreHoja === 'Mantenimiento Norte') {
+                destinatario = 'Destinatario: AdministracionRedCAPITALNORTE@teco.com.ar';
+                ccList.push('hlmartos@teco.com.ar');
+                if (ccEmail) ccList.push(ccEmail);
+                imputacion = 'Imputación: Mantenimiento Capi Norte';
+            } else if (nombreHoja === 'Mantenimiento Sur') {
+                destinatario = 'Destinatario: AdministracionRedCAPITALSUR@teco.com.ar';
+                ccList.push('hlmartos@teco.com.ar');
+                if (ccEmail) ccList.push(ccEmail);
+                imputacion = 'Imputación: Mantenimiento Capi Sur';
+            }
+
+            infoHeader.push([destinatario]);
+            if (ccList.length > 0) infoHeader.push([`CC: ${ccList.join(', ')}`]);
+            infoHeader.push([imputacion]);
+            infoHeader.push([]); // Fila en blanco para espaciar
+            // --- FIN: Lógica para la cabecera informativa ---
+
             const otsUnicas = [...new Map(tareas.map(t => [t.ot, t])).values()].sort((a,b) => a.ot.localeCompare(b.ot));
             const tareasUnicas = [...new Map(tareas.map(t => [t.codigo, t])).values()].sort((a,b) => a.codigo.localeCompare(b.codigo));
             const mapaCantidades = new Map(tareas.map(t => [`${t.ot}-${t.codigo}`, t.cantidad]));
+            
             const cabecera = ['Tarea (Código - Descripción)', ...otsUnicas.map(ot => `${ot.ot} - ${ot.direccion}`)];
             const filas = tareasUnicas.map(tareaInfo => {
                 const descripcion = (manosDeObra.find(mo => mo.codigo === tareaInfo.codigo) || {}).descripcion || "N/A";
@@ -213,8 +260,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 return fila;
             });
-            datosParaExportar.push({ nombreHoja, datos: [cabecera, ...filas] });
-            let tablaHTML = `<div class="report-section"><h3>${titulo}</h3><div class="preview-table-container"><table class="preview-table"><thead><tr>`;
+
+            const datosParaHoja = [...infoHeader, ...[cabecera, ...filas]];
+            datosParaExportar.push({ nombreHoja, datos: datosParaHoja });
+
+            let infoHeaderHTML = infoHeader.map(row => `<p style="margin: 2px 0; font-size: 0.9em;"><strong>${row[0] || ''}</strong></p>`).join('');
+            let tablaHTML = `<div class="report-section"><h3>${titulo}</h3>${infoHeaderHTML}<div class="preview-table-container"><table class="preview-table"><thead><tr>`;
             cabecera.forEach(h => tablaHTML += `<th>${h}</th>`);
             tablaHTML += `</tr></thead><tbody>`;
             filas.forEach(fila => {
@@ -225,12 +276,18 @@ document.addEventListener('DOMContentLoaded', () => {
             tablaHTML += `</tbody></table></div></div>`;
             reportContent.innerHTML += tablaHTML;
         };
+
         procesarCategoria('Proyecto OC NORTE', clasificacion.proyectoNorte, 'Proyecto Norte');
         procesarCategoria('Proyecto OC SUR', clasificacion.proyectoSur, 'Proyecto Sur');
         procesarCategoria('Mantenimiento Capi Norte', clasificacion.mantenimientoNorte, 'Mantenimiento Norte');
         procesarCategoria('Mantenimiento Capi Sur', clasificacion.mantenimientoSur, 'Mantenimiento Sur');
-        if(reportContent.innerHTML === '') { reportContent.innerHTML = '<p>No se encontraron datos para clasificar.</p>'; downloadExcelButton.style.display = 'none'; }
-        else { downloadExcelButton.style.display = 'block'; }
+        
+        if(reportContent.innerHTML === '') {
+            reportContent.innerHTML = '<p>No se encontraron datos para clasificar.</p>';
+            downloadExcelButton.style.display = 'none';
+        } else {
+            downloadExcelButton.style.display = 'block';
+        }
         reportModal.classList.remove('hidden');
     };
     const descargarExcel = async () => {
