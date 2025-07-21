@@ -1,0 +1,745 @@
+/* Estilos Generales */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f4f7f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+h1 {
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Layout Principal */
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+.panel {
+    border-radius: 5px;
+}
+
+.panel-left {
+    flex: 2; /* Ocupa 2/3 del espacio */
+}
+
+.panel-right {
+    flex: 1; /* Ocupa 1/3 del espacio */
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+}
+
+/* Secciones y Formularios */
+.input-section {
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="text"], input[type="number"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9em;
+    height: 1em;
+    display: block;
+}
+
+/* Lista de Tareas */
+.task-list {
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-item:hover {
+    background-color: #f0f0f0;
+}
+
+.task-item input[type="checkbox"] {
+    margin-right: 15px;
+    transform: scale(1.2);
+}
+
+.task-item .code {
+    font-weight: bold;
+    color: #3498db;
+    min-width: 80px;
+}
+
+/* Sección de Cantidades */
+#quantity-inputs-container .quantity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+#quantity-inputs-container .quantity-item-label {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+#quantity-inputs-container input[type="number"] {
+    width: 80px;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Panel de Resumen */
+.summary-section {
+    background-color: #eaf3ff;
+    border: 1px solid #c9deff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.summary-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    min-height: 150px;
+    border: 1px solid #ddd;
+}
+
+#summary-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#summary-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #ccc;
+}
+
+#add-ot-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 15px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#add-ot-button:hover {
+    background-color: #2ecc71;
+}
+
+#add-ot-button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* Panel de Registro */
+.registro-section.full-width {
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.registro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.registro-header h2 {
+    margin: 0;
+    border-bottom: none;
+}
+
+.export-btn {
+    padding: 10px 20px;
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.export-btn:hover {
+    background-color: #185abc;
+}
+
+.registro-box {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.registro-entry {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+}
+
+.registro-entry .ot-header {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #0056b3;
+    margin-bottom: 5px;
+}
+
+.registro-entry .ot-metadata {
+    padding: 8px 0;
+    display: flex;
+    gap: 20px;
+    font-size: 0.95em;
+    color: #555;
+    flex-wrap: wrap;
+}
+
+.registro-entry .ot-metadata span {
+    background-color: #e9ecef;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.registro-entry .task-list-log {
+    list-style-type: none;
+    padding-left: 20px;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.registro-entry .task-list-log li {
+    padding: 4px 0;
+    color: #495057;
+}
+
+.registro-entry .entry-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.registro-entry .action-btn {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.registro-entry .action-btn:hover {
+    opacity: 0.85;
+}
+
+.registro-entry .modify-btn {
+    background-color: #f0ad4e;
+}
+
+.registro-entry .delete-btn {
+    background-color: #d9534f;
+}
+
+/* ESTILOS PARA LA VENTANA MODAL (POP-UP) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    border: none;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1;
+    color: #888;
+    cursor: pointer;
+}
+
+.modal-body {
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+/* ESTILOS PARA EL CONTENIDO DEL INFORME */
+.report-section {
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.report-header h3 {
+    margin: 0;
+    color: #0056b3;
+}
+
+.report-copy-btn {
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.report-copy-btn:hover {
+    background-color: #0056b3;
+}
+
+.report-ot-group {
+    margin-bottom: 15px;
+}
+
+.report-ot-header {
+    font-weight: bold;
+    background-color: #f8f9fa;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.report-task-list {
+    list-style-type: none;
+    padding-left: 25px;
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+}
+
+.report-task-list li {
+    padding: 3px 0;
+}
+
+/* REGLA PARA OCULTAR ELEMENTOS */
+.hidden {
+    display: none;
+}
+/* ... (todos los estilos anteriores hasta .report-task-list li) ... */
+
+/* REGLA PARA OCULTAR ELEMENTOS */
+.hidden {
+    display: none;
+}
+
+/* NUEVOS ESTILOS PARA EL FOOTER DEL MODAL Y TABLA DE PREVISUALIZACIÓN */
+
+.modal-footer {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-footer p {
+    margin: 0;
+    font-style: italic;
+    color: #555;
+}
+
+.preview-table-container {
+    overflow-x: auto; /* Permite scroll horizontal si la tabla es muy ancha */
+}
+
+.preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85em;
+    margin-top: 10px;
+}
+
+.preview-table th, .preview-table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: left;
+}
+
+.preview-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    position: sticky;
+    top: 0; /* Para que la cabecera se quede fija al hacer scroll vertical */
+}
+
+.preview-table td:first-child, .preview-table th:first-child {
+    font-weight: bold;
+    min-width: 300px;
+}
+
+.preview-table td:not(:first-child) {
+    text-align: center;
+}
+/* ... (todos los estilos anteriores) ... */
+
+/* ESTILOS PARA LA SECCIÓN DE HISTORIAL */
+.history-box {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.history-item-info {
+    font-weight: bold;
+    color: #333;
+}
+
+.history-item-info .item-count {
+    font-weight: normal;
+    color: #666;
+    font-size: 0.9em;
+    margin-left: 10px;
+}
+
+.history-item .view-btn {
+    padding: 6px 14px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.history-item .view-btn:hover {
+    background-color: #5a6268;
+}
+
+/* ... (todos los estilos anteriores) ... */
+
+/* ESTILO PARA RESALTAR EL ITEM DEL HISTORIAL EN EDICIÓN */
+.history-item.editing {
+    border-left: 4px solid #007bff;
+    background-color: #f0f8ff;
+}
+
+.history-item .save-btn {
+    padding: 6px 14px;
+    background-color: #28a745; /* Botón verde para guardar */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.history-item .save-btn:hover {
+    background-color: #218838;
+}
+/* ... (todos los estilos anteriores) ... */
+
+/* ========================================================== */
+/* ESTILOS PARA NOTIFICACIONES Y DIÁLOGO DE CONFIRMACIÓN */
+/* ========================================================== */
+
+/* Contenedor para las notificaciones que se desvanecen */
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notification {
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+.notification.fade-out {
+    opacity: 0;
+}
+
+.notification.success {
+    background-color: rgba(40, 167, 69, 0.9); /* Verde */
+}
+
+.notification.error {
+    background-color: rgba(220, 53, 69, 0.9); /* Rojo */
+}
+
+/* Estilos para el diálogo de confirmación */
+.confirm-dialog {
+    width: auto;
+    max-width: 450px;
+    max-height: none; /* Anulamos el max-height del modal principal */
+    text-align: center;
+}
+
+#confirm-message {
+    font-size: 1.1em;
+    margin: 0 0 20px 0;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.confirm-actions button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    min-width: 100px;
+}
+
+#confirm-cancel-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+#confirm-ok-btn {
+    background-color: #ffc107; /* Amarillo */
+    color: #333;
+}
+/* ... (todos los estilos anteriores) ... */
+
+/* ESTILO PARA EL NUEVO BOTÓN DE ELIMINAR EN EL HISTORIAL */
+.history-item .delete-btn {
+    padding: 6px 14px;
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 8px; /* Espacio entre los botones */
+    transition: background-color 0.2s;
+}
+
+.history-item .delete-btn:hover {
+    background-color: #c82333;
+}
+/* ========================================================== */
+/* ESTILOS PARA LA PANTALLA DE LOGIN */
+/* ========================================================== */
+.login-container {
+    position: fixed; /* <-- Añadido */
+    top: 0;          /* <-- Añadido */
+    left: 0;         /* <-- Añadido */
+    z-index: 2000;   /* <-- Añadido, para que esté por encima de todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f2f5;
+}
+
+.login-form {
+    padding: 40px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-form h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.login-form p {
+    margin-bottom: 25px;
+    color: #666;
+}
+
+.login-form .form-group {
+    text-align: left;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* ESTILOS PARA EL ENCABEZADO DE LA APP */
+.app-header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.app-header h1 {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.user-info {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#current-user-span {
+    font-weight: bold;
+    color: #333;
+}
+
+#logout-button {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#logout-button:hover {
+    background-color: #5a6268;
+}
